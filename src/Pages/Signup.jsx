@@ -3,7 +3,7 @@ import { MDBInput } from 'mdb-react-ui-kit';
 import { useState } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { useToast } from '@chakra-ui/react'
+import { Box, useToast } from '@chakra-ui/react'
 import { Navigate } from 'react-router-dom';
 
 
@@ -26,7 +26,6 @@ function SignupPage() {
         setUser({...userData,[name]:value})
    }
 
-   console.log(reg);
    if(reg){
     return  <Navigate to='/login' />
    }
@@ -66,13 +65,18 @@ function SignupPage() {
                 duration: 4000,
                 isClosable: true,
               });
-           
+            let res1=  await fetch("https://tinder-goods-rwact-sakti.herokuapp.com/users",{
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers : {
+                'content-type': 'application/json'
+            }
+         });
         }
    }
 
-    return ( <div>
-        <Navbar/>
-       <div className='form_container'>
+    return ( <Box marginBottom='30px'>
+       <Box  w={{ base:'100%' ,sm:'100%' ,md:'50%',lg:'40%'  }} p='6' className='form_container'>
         <h1>Sign Up</h1>
        <form onSubmit={handleSubmit} action="">
            <label htmlFor="">FIRST NAME</label>
@@ -91,9 +95,8 @@ function SignupPage() {
           <MDBInput label="Description" type="text" name="description" value={userData.description} onChange={handleChange} />
           <button>Create</button>
         </form>
-       </div>
-        <Footer/>
-    </div> );
+       </Box>
+    </Box> );
 }
 
 export default SignupPage;

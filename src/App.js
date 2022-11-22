@@ -1,6 +1,5 @@
 import logo from './logo.svg';
 import './App.css';
-
 import Navbar from './Pages/Navbar';
 import Home from './Pages/Homepage';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,9 +8,14 @@ import Allroutes from './Allroutes';
 
 
 function App() {
-  return (<div className='App'>
-  <Allroutes/>
-  </div>);
+  return (
+  <div className='App'>
+    <Navbar/>
+    <Allroutes/>
+    <Footer/>
+         </div> 
+)
+  ;
 }
 
 export default App;

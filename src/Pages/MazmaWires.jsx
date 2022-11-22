@@ -6,17 +6,17 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
-function Products() {
+function Mazma() {
     const [data,setData]=useState([]);
     const [loading,setLoading]=useState(true);
-    let products="fake_store";
+    let products="mazma";
   
     useEffect(()=>{
       getData();
     },[])
   
     const getData=()=>{
-      fetch("https://tinder-goods-rwact-sakti.herokuapp.com/fake_store").then((res)=>res.json()).then((res)=>setData(res)).then((res)=>setLoading(false))
+      fetch("https://tinder-goods-rwact-sakti.herokuapp.com/mazma").then((res)=>res.json()).then((res)=>setData(res)).then((res)=>setLoading(false))
     }
     
    // console.log(data);
@@ -47,7 +47,7 @@ function Products() {
         <Carousel.Item>
           <Img  height={{ base:'250px' , sm:"250px" , md:"300px" , lg:"400px"   }} 
             className="d-block w-100"
-            src="https://cdn.shopify.com/s/files/1/0044/9802/collections/Tanner-Goods-M81-Lifestyle-Hero-01_2400x.jpg?v=1659673103"
+            src="httpAs://cdn.shopify.com/s/files/1/0044/9802/collections/Tanner-Goods-M81-Lifestyle-Hero-01_2400x.jpg?v=1659673103"
             alt="Third slide"
           />
           <Carousel.Caption>
@@ -74,4 +74,4 @@ function Products() {
      );
 }
 
-export default Products;
+export default Mazma;

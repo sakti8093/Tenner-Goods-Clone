@@ -5,14 +5,14 @@ import { Navigate } from "react-router-dom";
 
 function PrivateRouting({children}) {
 
+    const token=localStorage.getItem("token");
     const {isAuth}=useContext(AuthContext);
 
-    if(isAuth!==true){
+    if(!token){
        
        return <Navigate to='/login' />
 
     }
-
     return children
 }
 
