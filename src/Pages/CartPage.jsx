@@ -45,10 +45,10 @@ function CratPage() {
     const HandleClickCheckout=()=>{
         setCheckClick(true);
     }
+    
 
     return (
         <>
-
         <Box w='100%' color='white'>
        <Box w='100%' position='fixed' height='60px'  className="btn-grad" marginTop='-10px' display='flex' justifyContent='space-between' > <Heading fontSize='25px' color='black' > Total Price: {total} </Heading>
         <Button variant='solid' bg={{ base:"orange.500" ,sm:'orange.500',md:"black" , lg:"black" }}  pos={{ base:'fixed',sm:'fixed', md: 'static', lg:'static' }} 
