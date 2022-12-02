@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import { Box, useToast } from '@chakra-ui/react'
 import { Navigate } from 'react-router-dom';
+import { signupapi } from '../api';
 
 
 const InitState={
@@ -33,17 +34,16 @@ function SignupPage() {
 
    const handleSubmit=async(e)=>{
          e.preventDefault();
-        let registerRes = await fetch(`https://masai-api-mocker.herokuapp.com/auth/register`,{
+        let registerRes = await fetch(signupapi,{
             method: 'POST',
             body: JSON.stringify(userData),
             headers : {
                 'content-type': 'application/json'
             }
         });
-
+        
         let res = await registerRes.json();
-        console.log(res);
-        if(res.error){   
+        if(!res.success){   
             setReg(false);
             toast({
                 title: 'Error !!',
@@ -53,7 +53,6 @@ function SignupPage() {
                 duration: 4000,
                 isClosable: true,
               });
-             
         }
         else{
             setReg(true);
@@ -65,13 +64,6 @@ function SignupPage() {
                 duration: 4000,
                 isClosable: true,
               });
-            let res1=  await fetch("https://tinder-goods-rwact-sakti.herokuapp.com/users",{
-            method: 'POST',
-            body: JSON.stringify(userData),
-            headers : {
-                'content-type': 'application/json'
-            }
-         });
         }
    }
 

@@ -15,6 +15,9 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/react'
+import { Cart } from "../api";
+import { useContext } from "react";
+import { AuthContext } from "../Context/ContextProvider";
 
 
 function ProductDetails() {
@@ -23,7 +26,8 @@ function ProductDetails() {
     const [data,setData]=useState([]);
     const [sizes,setSizes]=useState([]);
     const [loading,setLoading]=useState(true)
-    const userID=localStorage.getItem("TGID")
+    const {user}=useContext(AuthContext);
+
     const toast = useToast();
     useEffect(()=>{
         getData();
@@ -35,26 +39,25 @@ function ProductDetails() {
     }
 
     const handleCart=async()=>{
-      // let res2=await fetch(`https://localhost:3000/users/${userID}/cart`);
-      // let res3= await res2.json();
       const InitState={
-        isBuy:false,
         image: data.image,
         title: data.title,
         type: data.type,
         price: data.price,
-        sizes :  data.size,
         desc: data.desc,
-        desc_image: data.desc_image
+        desc_image: data.desc_image,
+        userid:user._id
       }
 
-      let res1=await fetch(`https://tinder-goods-rwact-sakti.herokuapp.com/users/${userID}/cart`,{
+
+      let res1=await fetch(Cart,{
         method:'POST',
         body: JSON.stringify(InitState),
         headers:{
           'content-type': 'application/json'
         }
       });
+      if(res1.success) {
       toast({
         title: 'Sucessfully Added to cart',
         description: 'Product is ready for checkout',
@@ -63,7 +66,18 @@ function ProductDetails() {
         duration: 4000,
         isClosable: true,
       });
+    }else{
+      toast({
+        title: 'Sucessfully Added to cart',
+        description: `&{res.message}`,
+        status: 'success',
+        position: 'bottom',
+        duration: 4000,
+        isClosable: true,
+      });
     }
+    }
+
 
     return (<>
     <Box className="producDetailsMain" w='100%' p={{ base:'2',sm:'2', md: '6', lg:'12'}} gap='10' color='black' display={{ base:'block',sm:'block', md: 'flex', lg:'flex' }} justifyContent='space-between'  >

@@ -4,6 +4,8 @@ import Navbar from './Navbar';
 import {Box,Grid,GridItem,Stack,Skeleton, Img} from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { mazama } from '../api';
+
 
 
 function Mazma() {
@@ -16,7 +18,7 @@ function Mazma() {
     },[])
   
     const getData=()=>{
-      fetch("https://tinder-goods-rwact-sakti.herokuapp.com/mazma").then((res)=>res.json()).then((res)=>setData(res)).then((res)=>setLoading(false))
+      fetch(mazama).then((res)=>res.json()).then((res)=>setData(res)).then((res)=>setLoading(false))
     }
     
    // console.log(data);
@@ -65,7 +67,7 @@ function Mazma() {
           <Img src={elem.image} alt="" /> 
           <p>{elem.title}</p>
           <p>{elem.type}</p>
-          <p>{elem.price}</p>
+          <p>Rs: {elem.price}</p>
            </Link> ))
         }
       </Grid>

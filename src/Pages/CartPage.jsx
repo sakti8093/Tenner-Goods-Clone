@@ -1,43 +1,45 @@
 import { useEffect, useState } from "react";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import { Flex,Center,Square, Text, Spacer, Heading,Button } from '@chakra-ui/react'
+import { Flex,Center,Square, Text, Spacer, Heading,Button, Icon } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
 import { BsTruck } from 'react-icons/bs';
 import Collapsible from 'react-collapsible';
 import { useContext } from "react";
 import { AuthContext } from "../Context/ContextProvider";
 import { Navigate } from "react-router-dom";
+import { Cart } from "../api";
+import {AiOutlinePlusCircle,AiOutlineMinusCircle} from 'react-icons/ai'
 
 function CratPage() {
 
-    const userID=localStorage.getItem("TGID");
     const [data,setData]=useState([]);
     const [total,setTotal]=useState(0);
-    const {del,handleDeleteCart}=useContext(AuthContext);
+    const { user,del,handleDeleteCart,getToken}=useContext(AuthContext);
     const [checkClick,setCheckClick]=useState(false);
    
     useEffect(()=>{
         getData();
+       
     },[del,total]);
 
-    console.log(del)
 
     if(checkClick){
         return <Navigate to='/user/cart/checkout' />
     }
 
     const getData=async()=>{
-        let res1=await fetch(`https://tinder-goods-rwact-sakti.herokuapp.com/users/${userID}/cart`)
+        let userr=getToken();
+        let id=userr._id
+        let res1=await fetch(`${Cart}/${id}`)
         let res2=await res1.json();
-        setData(res2);
-        getTotal(res2);
+        console.log(res2)
+        setData(res2.message);
+        getTotal(res2.message);
     }
 
     
     const getTotal=(data)=>{
         let price= data.reduce((acc,elem)=>{
-            return acc+elem.price;
+            return acc+elem.price*elem.quantity;
         },0)
         setTotal(price)
     }
@@ -45,6 +47,27 @@ function CratPage() {
     const HandleClickCheckout=()=>{
         setCheckClick(true);
     }
+
+    const handleIncrease=async(id,quantity)=>{
+      
+         await  fetch(`${Cart}/${id}`,{
+           method:"PATCH", 
+           headers: {'Content-Type': 'application/json'},
+           body: JSON.stringify({"quantity":quantity+1})
+        })
+        getData();
+    }
+    const handleDecrease=async(id,quantity)=>{
+        if(quantity==1){
+            return
+        }
+      await  fetch(`${Cart}/${id}`,{
+          method:"PATCH",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({"quantity":quantity-1})
+       })
+       getData();
+   }
     
 
     return (
@@ -59,9 +82,10 @@ function CratPage() {
             <Box w={{ base:'100%',sm:'100%', md: '60%', lg:'60%' }}  > <img src={elem.image} alt="" /> </Box>
             <Box w={{ base:'100%',sm:'100%', md: '60%', lg:'40%' }}  className="producDetailsSecChild" color='black' ><p>{elem.type}</p>
                     <p>{elem.title}</p>
-                     <p>${elem.price}</p> 
+                     <p>Rs.{elem.price}</p> 
                      <p>Shipping calculated at checkout</p>
-           <Box as="button" onClick={()=>handleDeleteCart(elem.id)} bg='black' >Remove From cart</Box>
+           <Box> <Icon  onClick={()=>handleDecrease(elem._id,elem.quantity)} as={AiOutlineMinusCircle}/> {elem.quantity} <Icon onClick={()=>handleIncrease(elem._id,elem.quantity)} as={AiOutlinePlusCircle} /> </Box>
+           <Box as="button" onClick={()=>handleDeleteCart(elem._id)} bg='black' >Remove From cart</Box>
             <Box display='flex' p={2} alignItems="center" gap={2} > <BsTruck size={30} /> Free US Shipping on $199+ Orders</Box>
             <p>30-Days Returns / Exchanges</p>
             <p>Worth Holding Onto</p>

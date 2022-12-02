@@ -1,9 +1,20 @@
 import React from 'react'
 
- const reducer = () => {
-  return (
-    <div>reducer</div>
-  )
+let initState={
+  cart:[]
 }
+
+ export const reducer = ( state=initState,{type,payload} ) => {
+  switch (type) {
+    case 'SET_PRODUCT':
+      return {
+       ...state,
+        cart:[...cart,payload]
+      }
+    default:
+      return state
+  }
+
+ }
 
 export default reducer

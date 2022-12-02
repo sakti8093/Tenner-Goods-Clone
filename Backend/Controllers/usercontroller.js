@@ -71,6 +71,5 @@ export const login = async(req,res)=>{
                 success :false,
                 message:err
              })
-
     }
 }

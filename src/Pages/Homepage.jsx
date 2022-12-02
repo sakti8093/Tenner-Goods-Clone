@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import {Box,Grid,GridItem,Stack,Skeleton, Img} from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { tenner } from '../api';
 
 
 function Home() {
@@ -25,7 +26,7 @@ function Home() {
   },[])
 
   const getData=()=>{
-    fetch("https://tinder-goods-rwact-sakti.herokuapp.com/Best_Sellers").then((res)=>res.json()).then((res)=>setData(res)).then((res)=>setLoading(false))
+    fetch(tenner).then((res)=>res.json()).then((res)=>setData(res)).then((res)=>setLoading(false))
   }
 
   console.log(data);

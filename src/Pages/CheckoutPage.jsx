@@ -22,29 +22,32 @@ import {
         FormHelperText,
         InputLeftAddon,
         Stack,
+        useToken,
 
   } from '@chakra-ui/react'
 import { useState } from "react";
+import { Cart } from "../api";
 
 
 function CheckoutPage() {
 
-    const userID=localStorage.getItem("TGID");
     const toast = useToast();
 
     const [data,setData]=useState([]);
     const [total,setTotal]=useState(0);
     let count=1;
+    let {token}=useContext(AuthContext)
 
     useEffect(()=>{
         getData();
     },[]);
 
     const getData=async()=>{
-        let res1=await fetch(`https://tinder-goods-rwact-sakti.herokuapp.com/users/${userID}/cart`)
+        let userid=token._id
+        let res1=await fetch(`${Cart}/${userid}`)
         let res2=await res1.json();
-        setData(res2);
-        getTotal(res2)
+        setData(res2.message);
+        getTotal(res2.message)
     }
 
     const getTotal=(data)=>{

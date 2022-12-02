@@ -1,0 +1,6 @@
+export const signupapi='http://localhost:8080/register'
+export const loginapi='http://localhost:8080/login'
+export const mazama='http://localhost:8080/mazma'
+export const tenner='http://localhost:8080/tennergoods'
+export const Cart='http://localhost:8080/cart'
+export const search='http://localhost:8080/search'

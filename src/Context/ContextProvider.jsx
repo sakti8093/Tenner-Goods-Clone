@@ -1,44 +1,48 @@
 import { createContext } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-
+import Cookies from 'js-cookie'
+import { Cart } from "../api";
+import jwt_decode from "jwt-decode";
 
 export const AuthContext=createContext();
 
 function AuthContextProvider({children}) {
 
-    const [token,setoken]=useState("");
+    let [user,setUser]=useState({});
     const [username,setUsername]=useState("");
-    const [isAuth,setAuth]=useState(false);
+    const [isAuth,setAuth]=useState(Cookies.get("isAuth")=="true");
     const [del,setDel]=useState(false);
-
-
-
-    const HandleLogin=async(name)=>{
-        setAuth(true);
-        let res1=  await fetch(`https://tinder-goods-rwact-sakti.herokuapp.com/users?username=${name}`);
-        let res2= await res1.json();
-        localStorage.setItem("TGID",res2[0].id);
-    }
 
     
     const HandleLogout=()=>{
         setAuth(false);
-        localStorage.removeItem("token");
-        localStorage.removeItem("TGID");
-        localStorage.removeItem("TGNAME");
+        Cookies.remove("isAuth");
+        Cookies.remove("token");
+    }
+
+    const getToken=()=>{
+            let token=Cookies.get("token")
+            if(token){
+                let res= jwt_decode(token)
+            let res2=res.usersData
+            setUser(res2)
+            return res2;
+            }else{
+                return false
+            }    
     }
     
 
     const handleDeleteCart=async(id)=>{
-        await fetch (`https://tinder-goods-rwact-sakti.herokuapp.com/cart/${id}`,{
+        await fetch (`${Cart}/${id}`,{
             method:'DELETE'
         });
         setDel( !del);
     }
     
 
-    return <AuthContext.Provider value={{isAuth,HandleLogin,HandleLogout,setAuth,token,setoken,username,setUsername,handleDeleteCart,del}} >{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{user,isAuth,HandleLogout,setAuth,username,setUsername,handleDeleteCart,del,getToken}} >{children}</AuthContext.Provider>
 }
 
 export default AuthContextProvider;
