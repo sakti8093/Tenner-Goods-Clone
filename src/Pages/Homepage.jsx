@@ -71,7 +71,7 @@ function Home() {
       {loading?<Stack><Skeleton height='20px' /><Skeleton height='20px' /><Skeleton height='20px' /></Stack> :
       <Grid className='best_sel'  templateColumns= {{ base:'repeat(1, 1fr)',sm:'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg:  'repeat(4, 1fr)' }} >
         {
-          data.map((elem)=>( <Link  data-aos="flip-down" style={{textDecoration:"none", color:"black" }} to={`/${products}/${elem.id}`} className='best_sel_card' > 
+          data.map((elem)=>( <Link  data-aos="flip-down" style={{textDecoration:"none", color:"black" }} to={`/products/${elem._id}`} className='best_sel_card' > 
           <img src={elem.image} alt="" /> 
           <p>{elem.title}</p>
           <p>{elem.type}</p>

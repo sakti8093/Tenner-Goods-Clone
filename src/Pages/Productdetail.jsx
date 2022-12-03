@@ -15,15 +15,14 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from '@chakra-ui/react'
-import { Cart } from "../api";
+import { Cart, productsAPI } from "../api";
 import { useContext } from "react";
 import { AuthContext } from "../Context/ContextProvider";
 
 
 function ProductDetails() {
     const {id}=useParams();
-    const {products}=useParams();
-    const [data,setData]=useState([]);
+    const [data,setData]=useState({});
     const [sizes,setSizes]=useState([]);
     const [loading,setLoading]=useState(true)
     const {user}=useContext(AuthContext);
@@ -34,7 +33,7 @@ function ProductDetails() {
     },[])
 
     const getData=()=>{
-        fetch(`https://tinder-goods-rwact-sakti.herokuapp.com/${products}/${id}`).then((res)=>res.json())
+        fetch(`${productsAPI}/${id}`).then((res)=>res.json())
         .then((res)=>setData(res)).finally(()=>setLoading(false))
     }
 

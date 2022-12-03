@@ -2,7 +2,7 @@ import express from 'express'
 import { login, register } from './Controllers/usercontroller.js'
 import { connection } from './db.js'
 import cors from 'cors'
-import { mazma, tennergoods } from './Controllers/productcontroller.js'
+import { getProductDetails, mazma, tennergoods } from './Controllers/productcontroller.js'
 import { addCart, delCart, getCart, updateCart } from './Controllers/cartcontroller.js'
 import { search } from './Controllers/searchcontroller.js'
 
@@ -24,6 +24,7 @@ app.post('/cart' , addCart)
 app.patch('/cart/:id',updateCart)
 app.delete('/cart/:id',delCart)
 app.post('/search',search)
+app.get('/products/:id',getProductDetails)
 
 
 app.listen(8080,(req,res)=>{

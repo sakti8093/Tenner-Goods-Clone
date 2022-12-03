@@ -40,7 +40,7 @@ function Navbar({setShow}) {
      <Box bg='white' w='100%'   p={10} color='black' borderRadius='lg' display='flex' borderWidth='1px' justifyContent='space-between' position='fixed' top='0' overflow='hidden' zIndex='10' >
     <NavLink to='/' > <Box ><img  src="/logo-1.png" alt="" /></Box></NavLink>  
     <Box as='button' bg='white'  display={{base:'block', sm:'block', md:'none', lg:'none' }} onClick={isOpen? onClose : onOpen } >
-        <Icon as={GiHamburgerMenu  } w={14} h={14}  />
+        <Icon as={GiHamburgerMenu} w={14} h={14}  />
       </Box>
      <Box  display={{base:'none', sm:'none', md:'flex', lg:'flex' }}  alignItems='center' gap='1rem' > 
      <Link style={{ textDecoration: 'none', color: 'black' }} to='/products'><Text fontSize={{ base: '10px', md: '15px', lg: '20px' }} > Fake Store </Text> </Link> 
