@@ -8,6 +8,7 @@ import { mazama } from '../api';
 
 
 
+
 function Mazma() {
     const [data,setData]=useState([]);
     const [loading,setLoading]=useState(true);
@@ -76,7 +77,7 @@ function Mazma() {
 
       {loading?<Stack><Skeleton height='20px' /><Skeleton height='20px' /><Skeleton height='20px' /></Stack> :
       <>
-      <Select width='20%' name='sort' onChange={handleSort} >
+      <Select marginLeft='20px' width={{ base:"80%",sm:"60%",md:'20%',lg:'20%' }} name='sort' onChange={handleSort} >
         <option value="">Sort By price</option>
         <option value="lth">Low to High</option>
         <option value="htl">High to Low</option>

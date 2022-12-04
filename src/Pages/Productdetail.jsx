@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { Box, Button, Img } from '@chakra-ui/react'
+import { Box, Button, Img, Square } from '@chakra-ui/react'
 import { BsTruck } from 'react-icons/bs';
 import Collapsible from 'react-collapsible';
 import { useToast } from '@chakra-ui/react'
@@ -18,6 +18,7 @@ import {
 import { Cart, productsAPI } from "../api";
 import { useContext } from "react";
 import { AuthContext } from "../Context/ContextProvider";
+import Magnifier from "react-magnifier";
 
 
 function ProductDetails() {
@@ -80,7 +81,7 @@ function ProductDetails() {
 
     return (<>
     <Box className="producDetailsMain" w='100%' p={{ base:'2',sm:'2', md: '6', lg:'12'}} gap='10' color='black' display={{ base:'block',sm:'block', md: 'flex', lg:'flex' }} justifyContent='space-between'  >
-      <Box width={{ base:'100%',sm:'100%', md: '60%', lg:'60%' }}  ><img src={data.image} alt="" /></Box>
+      <Box width={{ base:'100%',sm:'100%', md: '60%', lg:'60%' }}  ><Magnifier src={data.image} mgHeight={300} mgWidth={300} mgShape={Square} zoomFactor={1} alt="" /></Box>
       <Box width={{ base:'100%',sm:'100%', md: '30%', lg:'60%' }}  className="producDetailsSecChild" >
         <p>{data.type}</p>
         <p>{data.title}</p>
