@@ -17,6 +17,7 @@ function CratPage() {
     const [checkClick,setCheckClick]=useState(false);
    
     useEffect(()=>{
+        window.scrollTo(0,0)
         getData();
        
     },[del,total]);

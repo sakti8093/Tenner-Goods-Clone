@@ -22,6 +22,7 @@ function Home() {
   const [loading,setLoading]=useState(true);
 
   useEffect(()=>{
+    
     getData();
   },[])
 

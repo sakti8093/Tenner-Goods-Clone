@@ -28,8 +28,10 @@ function ProductDetails() {
     const [loading,setLoading]=useState(true)
     const {user}=useContext(AuthContext);
 
+
     const toast = useToast();
     useEffect(()=>{
+      window.scrollTo(0,0) 
         getData();
     },[])
 
