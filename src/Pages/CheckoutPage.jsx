@@ -35,17 +35,20 @@ function CheckoutPage() {
 
     const [data,setData]=useState([]);
     const [total,setTotal]=useState(0);
+    const {getToken}=useContext(AuthContext);
+
     let count=1;
-    let {token}=useContext(AuthContext)
 
     useEffect(()=>{
         getData();
     },[]);
 
     const getData=async()=>{
+        let token=getToken();
         let userid=token._id
         let res1=await fetch(`${Cart}/${userid}`)
         let res2=await res1.json();
+        console.log(res2,"res2");
         setData(res2.message);
         getTotal(res2.message)
     }
@@ -82,15 +85,15 @@ function CheckoutPage() {
       <Tr>
         <Th>SL.NO</Th>
         <Th>TITLE</Th>
-        <Th isNumeric> PRICE </Th>
+        <Th>PRICE </Th>
       </Tr>
     </Thead>
     <Tbody>
         {data.map((elem)=>(
-              <Tr>
+            <Tr>
               <Td>{count++}</Td>
               <Td>{elem.title}</Td>
-              <Td isNumeric>{elem.price}</Td>
+              <Td>{elem.price}</Td>
             </Tr>
         ))}
         <Tr>
