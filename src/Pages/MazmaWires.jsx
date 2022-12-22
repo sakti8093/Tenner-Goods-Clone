@@ -64,7 +64,7 @@ function Mazma() {
         <Carousel.Item>
           <Img  height={{ base:'250px' , sm:"250px" , md:"300px" , lg:"400px"   }} 
             className="d-block w-100"
-            src="httpAs://cdn.shopify.com/s/files/1/0044/9802/collections/Tanner-Goods-M81-Lifestyle-Hero-01_2400x.jpg?v=1659673103"
+            src="https://cdn.shopify.com/s/files/1/0044/9802/collections/Tanner-Goods-M81-Lifestyle-Hero-01_2400x.jpg?v=1659673103"
             alt="Third slide"
           />
           <Carousel.Caption>
