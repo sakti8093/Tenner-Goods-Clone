@@ -4,7 +4,14 @@ import { Container,Box,Icon,Text,  Drawer,
   DrawerHeader,
   DrawerOverlay,Input,
   DrawerContent,Button,useDisclosure,
-  DrawerCloseButton, } from '@chakra-ui/react'
+  DrawerCloseButton,Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { BsBag } from 'react-icons/bs';
 import { BiUser } from 'react-icons/bi';
@@ -19,7 +26,7 @@ import { AuthContext } from '../Context/ContextProvider';
 
 function Navbar({setShow}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const {isAuth, user,del,handleDeleteCart,getToken}=useContext(AuthContext);
+  const {isAuth,getToken,HandleLogout}=useContext(AuthContext);
   const btnRef = useRef();
 
   const [userData,setData]=useState({});
@@ -32,12 +39,8 @@ function Navbar({setShow}) {
      setShow(true);
    }
   
-
-
-
-//  if(token){
     return (<Box>
-     <Box bg='white' w='100%'   p={10} color='black' borderRadius='lg' display='flex' borderWidth='1px' justifyContent='space-between' position='fixed' top='0' overflow='hidden' zIndex='10' >
+     <Box bg='white' w='100%'   p={10} color='black' borderRadius='lg' display='flex' borderWidth='1px' justifyContent='space-between' position='fixed' top='0'  zIndex='10' alignItems='center' >
     <NavLink to='/' > <Box ><img  src="/logo-1.png" alt="" /></Box></NavLink>  
     <Box as='button' bg='white'  display={{base:'block', sm:'block', md:'none', lg:'none' }} onClick={isOpen? onClose : onOpen } >
         <Icon as={GiHamburgerMenu} w={14} h={14}  />
@@ -48,7 +51,15 @@ function Navbar({setShow}) {
     <Text fontSize={{ base: '10px', md: '15px', lg: '20px' }} > Featured Collections</Text>
     <Text fontSize={{ base: '10px', md: '15px', lg: '20px' }} > Final Sales</Text> </Box>
    <Box display={{base:'none', sm:'none', md:'flex', lg:'flex' }} alignItems='center' gap='1rem' > 
-   <Link style={{ textDecoration: 'none', color: 'black' }} to={ userData ? '/user' : '/login' } ><Text fontSize={{ base: '10px', md: '15px', lg: '20px' }} >{userData? userData.name : <Icon as={BiUser} w={6} h={6}  />} </Text></Link >
+   <Text fontSize={{ base: '10px', md: '15px', lg: '20px' }} >{userData? 
+<Menu>
+  <MenuButton >
+    {userData.name}
+  </MenuButton>
+  <MenuList>
+    <MenuItem onClick={HandleLogout}>Logout</MenuItem>
+  </MenuList>
+</Menu>:<Link to={'/login'} > <Icon as={BiUser} w={6} h={6}  /></Link>} </Text>
     <Link style={{ textDecoration: 'none', color: 'black' }} to='/user/cart' > <Icon as={BsBag} w={6} h={6} />  </Link>
       <SearchIcon onClick={handleSearch} color='black' w={6} h={6} /></Box>
 </Box>
@@ -58,8 +69,8 @@ function Navbar({setShow}) {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader marginTop='140px' borderBottomWidth='1px' >
-            <Link onClick={isOpen? onClose : onOpen } style={{ textDecoration: 'none', color: 'black' }} to={ userData ? '/user' : '/login' }><Text  >{userData? userData.name : <Icon as={BiUser} w={16} h={16}  />  } </Text> 
-             </Link ></DrawerHeader>
+{userData? <Box display='flex' justifyContent='space-between' alignItems='center' >{userData.name} <Button backgroundColor='black' color='white' onClick={ HandleLogout } >LOGOUT</Button> </Box> :<Link to='/login' onClick={isOpen? onClose : onOpen } ><Icon as={BiUser} w={16} h={16}  /></Link>  }
+            </DrawerHeader>
           <DrawerHeader borderBottomWidth='1px'><Box display="flex" alignItems='center' gap='1rem' > 
     <Link onClick={isOpen? onClose : onOpen } style={{ textDecoration: 'none', color: 'black' }} to='/user/cart' > <Icon as={BsBag} w={16} h={16} />  </Link>
       <SearchIcon color='black' w={16} h={16} /></Box>
@@ -74,19 +85,10 @@ function Navbar({setShow}) {
           </DrawerBody>
           <DrawerFooter>Made with 💝 by sakti  </DrawerFooter>
         </DrawerContent>
-      
       </Drawer>
     </Box>);
-   
- // }
-  //   return ( <Box bg='white' w='100%' p={10} color='black' borderRadius='lg' display='flex' borderWidth='1px' justifyContent='space-between' position='fixed' top='0' overflow='hidden' zIndex='9999' >
-  //     <NavLink to='/' > <Box><img src="/logo-1.png" alt="" /></Box></NavLink>  
-  //   <Box display='flex' alignItems='center' gap='1rem' > <Link style={{ textDecoration: 'none', color: 'black' }} to='/products'> <Text fontSize={{ base: '10px', md: '15px', lg: '20px' }} > Tanner Goods </Text></Link> 
-  //   <Link style={{ textDecoration: 'none', color: 'black' }} to='/mazma'><Text fontSize={{ base: '10px', md: '15px', lg: '20px' }} > Mazma Wires </Text> </Link> 
-  //    <p>FeaturedCollections</p> <p>Final Sales</p> </Box>
-  //   <Box display='flex' alignItems='center' gap='1rem' > <Link style={{ textDecoration: 'none', color: 'black' }} to='/login' > <Icon as={BiUser} w={6} h={6} /> </Link>  <Link style={{ textDecoration: 'none', color: 'black' }} to='/user/cart' > <Icon as={BsBag} w={6} h={6} />  </Link> <SearchIcon color='black' w={6} h={6} />  </Box>
-  // </Box>
-  //    );
 }
 export default Navbar;
+
+
 

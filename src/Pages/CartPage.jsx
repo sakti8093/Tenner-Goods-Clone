@@ -17,7 +17,6 @@ function CratPage() {
     const [checkClick,setCheckClick]=useState(false);
    
     useEffect(()=>{
-        window.scrollTo(0,0)
         getData();
        
     },[del,total]);
@@ -50,8 +49,8 @@ function CratPage() {
     }
 
     const handleIncrease=async(id,quantity)=>{
-      
-         await  fetch(`${Cart}/${id}`,{
+        console.log(Cart,"cart")
+         await fetch(`${Cart}/${id}`,{
            method:"PATCH", 
            headers: {'Content-Type': 'application/json'},
            body: JSON.stringify({"quantity":quantity+1})

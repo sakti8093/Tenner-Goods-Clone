@@ -45,7 +45,7 @@ function App() {
   return (
   <div className='App'>
     <Navbar setShow={setShow} />
-    {showSearch?<Box width='80%' display='flex'  bg='white'  overflow='hidden' p={2} margin='auto' height='60px' ><Input  onChange={handleSearch} width='40%' margin='auto' placeholder='search here.....' /><Icon w={8} h={8} as={AiOutlineCloseCircle} onClick={handleCross} /> </Box>:""}
+    {showSearch?<Box width='80%' display='flex'  bg='white'  overflow='hidden' p={2} margin='auto' height='60px' position='fixed' ><Input  onChange={handleSearch} width='40%' margin='auto' placeholder='search here.....' /><Icon w={8} h={8} as={AiOutlineCloseCircle} onClick={handleCross} /> </Box>:""}
     {searchArray?<Box width='40%' position='absolute' bg='white' left='30%'  zIndex='200' height='300px' overflow='scroll' margin='auto' >{searchArray.map((elem)=>(
       <Link onClick={handleClick} to={`/products/${elem._id}`} >  <Box  width='100%'  display='flex' p={2} border='1px solid black'>
           <Box width='100px' ><Image width='100%' src={elem.image} /></Box>

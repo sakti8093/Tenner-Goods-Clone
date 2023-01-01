@@ -82,23 +82,17 @@ function ProductDetails() {
 
 
     return (<>
-    <Box className="producDetailsMain" w='100%' p={{ base:'2',sm:'2', md: '6', lg:'12'}} gap='10' color='black' display={{ base:'block',sm:'block', md: 'flex', lg:'flex' }} justifyContent='space-between'  >
+    <Box className="producDetailsMain" width='100%' p={{ base:'2',sm:'2', md: '6', lg:'12'}} gap='10' color='black' display={{ base:'block',sm:'block', md: 'flex', lg:'flex' }} justifyContent='space-between'  >
       <Box width={{ base:'100%',sm:'100%', md: '60%', lg:'60%' }}  ><Magnifier src={data.image} mgHeight={300} mgWidth={300} mgShape={Square} zoomFactor={1} alt="" /></Box>
       <Box width={{ base:'100%',sm:'100%', md: '30%', lg:'60%' }}  className="producDetailsSecChild" >
         <p>{data.type}</p>
         <p>{data.title}</p>
         <p>${data.price}</p>
         <p>Shipping calculated at checkout</p>
-           <Box as="button" bg={{ base:"orange.500" ,sm:'orange.500',md:"black" , lg:"black" }} pos={{ base:'fixed',sm:'fixed', md: 'static', lg:'static' }} bottom='-3' left='0' height={{ base:'60px',sm:'60px', md: '50px', lg:'50px' }}  onClick={handleCart} > ADD TO CART</Box>
+           <Box as="button" bg={{ base:"orange.500" ,sm:'orange.500',md:"black" , lg:"black" }} pos={{ base:'fixed',sm:'fixed', md: 'static', lg:'static' }} bottom='-3' left='0' right='0' height={{ base:'60px',sm:'60px', md: '50px', lg:'50px' }}  onClick={handleCart} > ADD TO CART</Box>
             <Box display='flex' p={2} alignItems="center" gap={2} > <BsTruck size={30} /> Free US Shipping on $199+ Orders</Box>
             <p>30-Days Returns / Exchanges</p>
             <p>Worth Holding Onto</p>
-    {/* <Collapsible className="collapsbelButton" trigger="Returns And Echange">
-     
-    </Collapsible>
-    <Collapsible trigger="Shipping Info">
-   
-    </Collapsible> */}
     <Accordion allowToggle>
   <AccordionItem  >
     <h2  >
@@ -144,7 +138,7 @@ function ProductDetails() {
 </Accordion>
       </Box>
     </Box>
-    <Box><Img height={{ base:'250px' , sm:"300px" , md:"400px" , lg:"500px"   }}  data-aos="fade-left"  src={data.desc_image} alt="" /></Box>
+    <Box><Img height={{ base:'250px' , sm:"300px" , md:"400px" , lg:"500px"   }}   src={data.desc_image} alt="" /></Box>
     </>);
 }
 
