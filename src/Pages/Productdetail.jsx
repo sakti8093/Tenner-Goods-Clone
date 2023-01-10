@@ -19,13 +19,15 @@ import { Cart, productsAPI } from "../api";
 import { useContext } from "react";
 import { AuthContext } from "../Context/ContextProvider";
 import Magnifier from "react-magnifier";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoading, stopLoading } from "../Redux/action";
 
 
 function ProductDetails() {
     const {id}=useParams();
     const [data,setData]=useState({});
-    const [sizes,setSizes]=useState([]);
-    const [loading,setLoading]=useState(true)
+    const dispatch=useDispatch();
+    const loading=useSelector((state)=>state.loading)
     const {user}=useContext(AuthContext);
 
 
@@ -36,11 +38,13 @@ function ProductDetails() {
     },[])
 
     const getData=()=>{
+        dispatch(startLoading())
         fetch(`${productsAPI}/${id}`).then((res)=>res.json())
-        .then((res)=>setData(res)).finally(()=>setLoading(false))
+        .then((res)=>setData(res)).finally(()=>dispatch(stopLoading()))
     }
 
     const handleCart=async()=>{
+      dispatch(startLoading())
       const InitState={
         image: data.image,
         title: data.title,
@@ -71,25 +75,25 @@ function ProductDetails() {
     }else{
       toast({
         title: 'Sucessfully Added to cart',
-        description: `&{res.message}`,
         status: 'success',
         position: 'bottom',
         duration: 4000,
         isClosable: true,
       });
     }
+    dispatch(stopLoading())
     }
 
 
     return (<>
-    <Box className="producDetailsMain" width='100%' p={{ base:'2',sm:'2', md: '6', lg:'12'}} gap='10' color='black' display={{ base:'block',sm:'block', md: 'flex', lg:'flex' }} justifyContent='space-between'  >
+    <Box className="producDetailsMain" width='100%' p={{ base:'2',sm:'2', md: '6', lg:'12'}} gap='10' color='black' display={{ base:'block',sm:'block', md: 'flex', lg:'flex' }} justifyContent='space-between' opacity={ loading?'0.4':1 }  >
       <Box width={{ base:'100%',sm:'100%', md: '60%', lg:'60%' }}  ><Magnifier src={data.image} mgHeight={300} mgWidth={300} mgShape={Square} zoomFactor={1} alt="" /></Box>
       <Box width={{ base:'100%',sm:'100%', md: '30%', lg:'60%' }}  className="producDetailsSecChild" >
         <p>{data.type}</p>
         <p>{data.title}</p>
         <p>${data.price}</p>
         <p>Shipping calculated at checkout</p>
-           <Box as="button" bg={{ base:"orange.500" ,sm:'orange.500',md:"black" , lg:"black" }} pos={{ base:'fixed',sm:'fixed', md: 'static', lg:'static' }} bottom='-3' left='0' right='0' height={{ base:'60px',sm:'60px', md: '50px', lg:'50px' }}  onClick={handleCart} > ADD TO CART</Box>
+           <Box as="button" zIndex='10' width='100%' bg={{ base:"orange.500" ,sm:'orange.500',md:"black" , lg:"black" }} pos={{ base:'fixed',sm:'fixed', md: 'static', lg:'static' }} bottom='-3' left='0' right='0' height={{ base:'60px',sm:'60px', md: '50px', lg:'50px' }}  onClick={handleCart} > ADD TO CART</Box>
             <Box display='flex' p={2} alignItems="center" gap={2} > <BsTruck size={30} /> Free US Shipping on $199+ Orders</Box>
             <p>30-Days Returns / Exchanges</p>
             <p>Worth Holding Onto</p>

@@ -2,7 +2,7 @@
 import Carousel from 'react-bootstrap/Carousel';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import {Box,Grid,GridItem,Stack,Skeleton, Img} from '@chakra-ui/react'
+import {Box,Grid,GridItem,Stack,Skeleton, Img, TagRightIcon} from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { tenner } from '../api';
@@ -34,15 +34,13 @@ function Home() {
 
     return ( <>
           <Box  backgroundColor='#c69c6d' textAlign='center'  p={2}  color='white' > <p>FREE US SHIPPING $199+ | EASY RETURNS | FREE EXCHANGES</p> </Box>
-        <Carousel fade>
+        <Carousel controls={true}  >
         <Carousel.Item>
           <Img height={{ base:'250px' , sm:"250px" , md:"300px" , lg:"400px"   }} 
             className="d-block w-100"
             src="https://cdn.shopify.com/s/files/1/0044/9802/collections/Tanner-Goods-Leather-Wallet-Portland-Hero_2400x.jpg?v=1647381821"
             alt="First slide"
           />
-          <Carousel.Caption>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <Img   height={{ base:'250px' , sm:"250px" , md:"300px" , lg:"400px"   }} 
@@ -50,9 +48,6 @@ function Home() {
             src="https://cdn.shopify.com/s/files/1/0044/9802/files/TG-Utility-Bifold-Saddle-Tan-Hero_300x.jpg?v=1663373530"
             alt="Second slide"
           />
-  
-          <Carousel.Caption>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <Img   height={{ base:'250px' , sm:"250px" , md:"300px" , lg:"400px"   }} 
@@ -60,8 +55,6 @@ function Home() {
             src="https://cdn.shopify.com/s/files/1/0044/9802/collections/Tanner-Goods-M81-Lifestyle-Hero-01_2400x.jpg?v=1659673103"
             alt="Third slide"
           />
-          <Carousel.Caption>
-          </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
        

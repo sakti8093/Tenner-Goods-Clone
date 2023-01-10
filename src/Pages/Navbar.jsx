@@ -1,17 +1,13 @@
-import { Container,Box,Icon,Text,  Drawer,
+import { Box,Icon,Text,  Drawer,
   DrawerBody,
   DrawerFooter,
   DrawerHeader,
-  DrawerOverlay,Input,
+  DrawerOverlay,
   DrawerContent,Button,useDisclosure,
   DrawerCloseButton,Menu,
   MenuButton,
   MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider } from '@chakra-ui/react'
+  MenuItem} from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { BsBag } from 'react-icons/bs';
 import { BiUser } from 'react-icons/bi';
@@ -27,7 +23,6 @@ import { AuthContext } from '../Context/ContextProvider';
 function Navbar({setShow}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const {isAuth,getToken,HandleLogout}=useContext(AuthContext);
-  const btnRef = useRef();
 
   const [userData,setData]=useState({});
    useEffect(()=>{

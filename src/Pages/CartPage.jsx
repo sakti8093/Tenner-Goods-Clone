@@ -8,6 +8,9 @@ import { AuthContext } from "../Context/ContextProvider";
 import { Navigate } from "react-router-dom";
 import { Cart } from "../api";
 import {AiOutlinePlusCircle,AiOutlineMinusCircle} from 'react-icons/ai'
+import { Spinner } from '@chakra-ui/react'
+import { useDispatch, useSelector } from "react-redux";
+import { startLoading, stopLoading } from "../Redux/action";
 
 function CratPage() {
 
@@ -15,6 +18,9 @@ function CratPage() {
     const [total,setTotal]=useState(0);
     const { user,del,handleDeleteCart,getToken}=useContext(AuthContext);
     const [checkClick,setCheckClick]=useState(false);
+    const dispatch = useDispatch();
+    const loading=useSelector((state)=>state.loading)
+
    
     useEffect(()=>{
         getData();
@@ -27,6 +33,7 @@ function CratPage() {
     }
 
     const getData=async()=>{
+        dispatch( startLoading() )
         let userr=getToken();
         let id=userr._id
         let res1=await fetch(`${Cart}/${id}`)
@@ -34,6 +41,7 @@ function CratPage() {
         console.log(res2)
         setData(res2.message);
         getTotal(res2.message);
+        dispatch(stopLoading())
     }
 
     
@@ -68,12 +76,12 @@ function CratPage() {
        })
        getData();
    }
-    
 
     return (
         <>
-        <Box w='100%' color='white'>
+        <Box w='100%' color='white' opacity={loading?"0.4":1}>
        <Box w='100%' position='fixed' height='60px'  className="btn-grad" marginTop='-10px' display='flex' justifyContent='space-between' > <Heading fontSize='25px' color='black' > Total Price: {total} </Heading>
+     
         <Button variant='solid' bg={{ base:"orange.500" ,sm:'orange.500',md:"black" , lg:"black" }}  pos={{ base:'fixed',sm:'fixed', md: 'static', lg:'static' }} 
          bottom='-3' width={{base:'100%' , sm:"100%" , md:'150px' }} left='0' height={{ base:'70px',sm:'70px', md: '50px', lg:'50px' }} 
           colorScheme='black' onClick={HandleClickCheckout}> <Text textAlign='center' fontSize={{ base:"20px" , sm:'20px'   }} > CHECKOUT </Text> </Button> </Box>
