@@ -5,7 +5,7 @@ import Home from './Pages/Homepage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './Pages/Footer';
 import Allroutes from './Allroutes';
-import { Box, Icon, Image, Input, Spinner, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Collapse, Icon, Image, Input, ScaleFade, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { search } from './api';
@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 
 
 function App() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onToggle } = useDisclosure()
   const [showSearch,setShow]=useState(false);
   const [searchArray,setSearch]=useState(false)
   const loading=useSelector((state)=>state.loading)
@@ -22,6 +22,7 @@ function App() {
   const handleCross=()=>{
     setShow(false);
     setSearch(false);
+    onToggle(false)
   }
 
   const handleClick=()=>{
@@ -46,10 +47,10 @@ function App() {
 
   return (
   <div className='App'>
-    <Navbar setShow={setShow} />
-    {showSearch?<Box width='80%' display='flex'  bg='white'  overflow='hidden' p={2} margin='auto' height='60px' ><Input  onChange={handleSearch} width='40%' margin='auto' placeholder='search here.....' /><Icon w={8} h={8} as={AiOutlineCloseCircle} onClick={handleCross} /> </Box>:""}
-    {searchArray?<Box width='40%' position='absolute' bg='white' left='30%'  zIndex='200' height='300px' overflow='scroll' margin='auto' >{searchArray.map((elem)=>(
-      <Link onClick={handleClick} to={`/products/${elem._id}`} >  <Box  width='100%'  display='flex' p={2} border='1px solid black'>
+    <Navbar setShow={onToggle} />
+    <ScaleFade initialScale={0.1} in={isOpen}  ><Box width='60%' display='flex' position='fixed' zIndex='200' bg='white'  overflow='hidden' p={2} margin='auto' height='60px' left='20%' borderRadius='50px' ><Input  onChange={handleSearch} width='90%' margin='auto' placeholder='search here.....' /><Icon w={8} h={8} as={AiOutlineCloseCircle} onClick={handleCross} /> </Box></ScaleFade>
+    {searchArray?<Box display='block'  width={{ base:"80%" , sm:"60%" , md:"40%" , lg:"40%" }}  bg='white' margin='auto' zIndex='200' maxHeight='300px' overflowY='scroll' mt='50px' position='fixed' left='30%' >{searchArray.map((elem)=>(
+      <Link onClick={handleClick} to={`/products/${elem._id}`} >  <Box  width='100%'  display='flex' p={2}>
           <Box width='100px' ><Image width='100%' src={elem.image} /></Box>
           <Text >{elem.title}</Text>
          </Box></Link>

@@ -31,7 +31,7 @@ function Navbar({setShow}) {
    },[isAuth])
 
    const handleSearch=()=>{
-     setShow(true);
+     setShow();
    }
   
     return (<Box>

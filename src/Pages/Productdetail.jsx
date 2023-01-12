@@ -2,11 +2,8 @@
 import { useId, useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
 import { Box, Button, Img, Square } from '@chakra-ui/react'
 import { BsTruck } from 'react-icons/bs';
-import Collapsible from 'react-collapsible';
 import { useToast } from '@chakra-ui/react'
 import {
   Accordion,
@@ -35,7 +32,7 @@ function ProductDetails() {
     useEffect(()=>{
       window.scrollTo(0,0) 
         getData();
-    },[])
+    },[id])
 
     const getData=()=>{
         dispatch(startLoading())
