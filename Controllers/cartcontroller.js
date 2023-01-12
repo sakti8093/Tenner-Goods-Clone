@@ -5,10 +5,17 @@ export const getCart=async(req,res)=>{
     try{
         if(userid){
             const userCart=await cartModel.find({userid:userid})
-            res.send({
-                success: true,
-                message:userCart
-            })
+            if(userCart.length>0){
+                res.send({
+                    success: true,
+                    message:userCart
+                })
+            }else{
+                res.status(404).send({
+                    success: false,
+                    message:"user not found"
+                })
+            }
         }else{
             res.status(400).send({success:false,message:"invalid userid"})
         }
@@ -23,7 +30,7 @@ export const addCart=async(req,res)=>{
         let cart=req.body;
         cart={...cart,quantity:1}
         if(cart.userid){
-               let usercart=await cartModel.find({_id:cart._id,userid:cart.userid});
+               let usercart=await cartModel.find({_id:cart._id,userid:cart.userid});    
                 if(usercart.length>0){
                     res.status(400).send({
                         success: false,
