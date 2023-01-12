@@ -17,16 +17,25 @@ export const getCart=async(req,res)=>{
     }
 }
 
+
 export const addCart=async(req,res)=>{
     try{
         let cart=req.body;
         cart={...cart,quantity:1}
         if(cart.userid){
-                await cartModel.create(cart)
+               let usercart=await cartModel.find({_id:cart._id,userid:cart.userid});
+                if(usercart.length>0){
+                    res.status(400).send({
+                        success: false,
+                        message:"Already Present in cart"
+                    })
+                }else{
+                    await cartModel.create(cart)
                 res.send({
                     success: true,
                     message:"Added to cart"
                 })
+                }
         }else{
             res.status(400).send({
                 success: false,
