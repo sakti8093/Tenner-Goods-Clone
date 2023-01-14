@@ -52,8 +52,6 @@ function ProductDetails() {
         userid:user._id,
         id:data._id
       }
-
-
       let res1=await fetch(Cart,{
         method:'POST',
         body: JSON.stringify(InitState),
@@ -61,6 +59,8 @@ function ProductDetails() {
           'content-type': 'application/json'
         }
       });
+      res1=await res1.json();
+      console.log(res1,"res1");
       if(res1.success) {
       toast({
         title: 'Sucessfully Added to cart',

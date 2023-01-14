@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Flex,Center,Square, Text, Spacer, Heading,Button, Icon } from '@chakra-ui/react'
+import { Flex,Center,Square, Text, Spacer, Heading,Button, Icon, Image } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
 import { BsTruck } from 'react-icons/bs';
 import Collapsible from 'react-collapsible';
@@ -50,6 +50,7 @@ function CratPage() {
         dispatch(stopLoading())
     }
 
+
     
     const getTotal=(data)=>{
         let price= data.reduce((acc,elem)=>{
@@ -83,6 +84,12 @@ function CratPage() {
        getData();
    }
 
+   if(data.length ==0){
+    return <Box> <Image width='50%' margin='auto' mt='120px' src="https://bakestudio.in/assets/images/cart/empty-cart.gif" />
+    <Text fontSize='30px' textAlign='center' >Cart is Empty !!</Text></Box>
+    
+
+   }
     return (
         <>
         <Box w='100%' color='white' opacity={loading?"0.4":1}>
@@ -98,7 +105,7 @@ function CratPage() {
                     <p>{elem.title}</p>
                      <p>Rs.{elem.price}</p> 
                      <p>Shipping calculated at checkout</p>
-           <Box> <Icon  onClick={()=>handleDecrease(elem._id,elem.quantity)} as={AiOutlineMinusCircle}/> {elem.quantity} <Icon onClick={()=>handleIncrease(elem._id,elem.quantity)} as={AiOutlinePlusCircle} /> </Box>
+           <Box> <Icon fontSize='25px' onClick={()=>handleDecrease(elem._id,elem.quantity)} as={AiOutlineMinusCircle}/> {elem.quantity} <Icon fontSize='25px' onClick={()=>handleIncrease(elem._id,elem.quantity)} as={AiOutlinePlusCircle} /> </Box>
            <Box as="button" onClick={()=>handleDeleteCart(elem._id)} bg='black' >Remove From cart</Box>
             <Box display='flex' p={2} alignItems="center" gap={2} > <BsTruck size={30} /> Free US Shipping on $199+ Orders</Box>
             <p>30-Days Returns / Exchanges</p>
@@ -109,6 +116,7 @@ function CratPage() {
             </Box>
          </Box>
         ))}
+         {data.length==0? <Image width='50%' margin='auto' mt='120px' src="https://bakestudio.in/assets/images/cart/empty-cart.gif" />:""}
         </Box>
         </>
       );
