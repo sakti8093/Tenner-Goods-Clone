@@ -9,7 +9,8 @@ const cartSchema = mongoose.Schema({
     desc_image:{type:"string"},
     type:{type:"string"},
     userid:{type:'String'},
-    quantity:{type:'Number'}
+    quantity:{type:'Number'},
+    id:{type:'String'}
 })
 
 export const cartModel = mongoose.model("carts",cartSchema)

@@ -30,7 +30,7 @@ export const addCart=async(req,res)=>{
         let cart=req.body;
         cart={...cart,quantity:1}
         if(cart.userid){
-               let usercart=await cartModel.find({_id:cart._id,userid:cart.userid});    
+               let usercart=await cartModel.find({id:cart.id,userid:cart.userid});    
                 if(usercart.length>0){
                     res.status(400).send({
                         success: false,
