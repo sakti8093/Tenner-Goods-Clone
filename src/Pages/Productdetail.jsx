@@ -49,7 +49,8 @@ function ProductDetails() {
         price: data.price,
         desc: data.desc,
         desc_image: data.desc_image,
-        userid:user._id
+        userid:user._id,
+        id:data._id
       }
 
 
@@ -71,8 +72,8 @@ function ProductDetails() {
       });
     }else{
       toast({
-        title: 'Sucessfully Added to cart',
-        status: 'success',
+        title: `${res1.message}`,
+        status: 'error',
         position: 'bottom',
         duration: 4000,
         isClosable: true,

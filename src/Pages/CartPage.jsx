@@ -16,7 +16,7 @@ function CratPage() {
 
     const [data,setData]=useState([]);
     const [total,setTotal]=useState(0);
-    const { user,del,handleDeleteCart,getToken}=useContext(AuthContext);
+    const { del,handleDeleteCart,getToken}=useContext(AuthContext);
     const [checkClick,setCheckClick]=useState(false);
     const dispatch = useDispatch();
     const loading=useSelector((state)=>state.loading)
@@ -38,7 +38,13 @@ function CratPage() {
         let id=userr._id
         let res1=await fetch(`${Cart}/${id}`)
         let res2=await res1.json();
-        console.log(res2)
+        console.log(res2,"res2")
+        if(!res2.success){
+            dispatch(stopLoading())
+            setData([]);
+            getTotal([]);
+            return
+        }
         setData(res2.message);
         getTotal(res2.message);
         dispatch(stopLoading())
